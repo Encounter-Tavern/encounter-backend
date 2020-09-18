@@ -31,7 +31,7 @@ public class Monster {
     private List<Language> languages;
     private List<Action> actions;
 
-    private List<Vulnerabilities> damageVulnerabilities;
+    private List<DamageType> damageVulnerabilities;
     private List<DamageType> damageResistances;
 
 }
