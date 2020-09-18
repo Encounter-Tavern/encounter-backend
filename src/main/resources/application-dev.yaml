@@ -1,0 +1,13 @@
+server:
+  port: 8081
+spring:
+  jpa:
+    database: POSTGRESQL
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/encounter
+    username: user
+    password: secret
