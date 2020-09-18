@@ -1,5 +1,6 @@
 package com.encountertavern.demo.dto;
 
+import com.encountertavern.demo.enums.Difficulty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,5 +11,6 @@ import java.util.List;
 public class GenerateEncounter {
 
     private List<Player> players;
+    private Difficulty difficulty;
 
 }
