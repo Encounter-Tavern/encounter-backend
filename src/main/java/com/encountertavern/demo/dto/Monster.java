@@ -2,7 +2,7 @@ package com.encountertavern.demo.dto;
 
 import com.encountertavern.demo.enums.Aligment;
 import com.encountertavern.demo.enums.Language;
-import com.encountertavern.demo.enums.Resistance;
+import com.encountertavern.demo.enums.DamageType;
 import com.encountertavern.demo.enums.Type;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +32,6 @@ public class Monster {
     private List<Action> actions;
 
     private List<Vulnerabilities> damageVulnerabilities;
-    private List<Resistance> damageResistances;
+    private List<DamageType> damageResistances;
 
 }

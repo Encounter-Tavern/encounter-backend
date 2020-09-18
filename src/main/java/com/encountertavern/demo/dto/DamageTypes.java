@@ -1,6 +1,6 @@
 package com.encountertavern.demo.dto;
 
-import com.encountertavern.demo.enums.Resistance;
+import com.encountertavern.demo.enums.DamageType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,8 +8,8 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Resistances {
+public class DamageTypes {
 
-    private List<Resistance> Resistances;
+    private List<DamageType> damageTypes;
 
 }
