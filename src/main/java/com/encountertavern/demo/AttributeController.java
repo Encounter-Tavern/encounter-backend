@@ -6,8 +6,11 @@ import com.encountertavern.demo.enums.Difficulty;
 import com.encountertavern.demo.enums.Language;
 import com.encountertavern.demo.enums.Type;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Set;
@@ -19,31 +22,40 @@ public class AttributeController {
     private EncounterRepository encounterRepository;
     private MonsterRepository monsterRepository;
     private PlayerRepository playerRepository;
+    private final RestTemplate restTemplate;
+
+    @Value("${5e-srd-api.url}")
+    private String dndApiUrl;
 
     @Autowired
     public AttributeController(MonsterIndexRepository monsterIndexRepository,
                                EncounterRepository encounterRepository,
                                MonsterRepository monsterRepository,
-                               PlayerRepository playerRepository) {
+                               PlayerRepository playerRepository,
+                               RestTemplateBuilder restTemplateBuilder) {
         this.monsterIndexRepository = monsterIndexRepository;
         this.encounterRepository = encounterRepository;
         this.monsterRepository = monsterRepository;
         this.playerRepository = playerRepository;
+        this.restTemplate = restTemplateBuilder.build();
+    }
+
+    @RequestMapping("/rest")
+    public com.encountertavern.demo.dto.Monster rest() {
+        System.out.println(dndApiUrl);
+        return restTemplate.getForObject( dndApiUrl + "monsters/adult-black-dragon/", com.encountertavern.demo.dto.Monster.class);
     }
 
     @RequestMapping("/test")
     public List<Encounter> test() {
-        MonsterIndex mi = new MonsterIndex();
-        mi.setName("Goblin");
-        mi.setApiUrl("TESTURL");
-        mi.setChallengeRating(1);
-        mi.setDefaultHitPoints(7);
-        monsterIndexRepository.save(mi);
+        MonsterIndex mi = monsterIndexRepository.getOne(new Long(1));
 
         Monster m1 = new Monster();
         m1.setName("Boblin");
+        m1.setMonsterIndex(mi);
         Monster m2 = new Monster();
         m2.setName("Goblin");
+        m2.setMonsterIndex(mi);
         Set<Monster> m = Set.of(new Monster[]{m1, m2});
 
         Player p1 = new Player();

@@ -24,7 +24,7 @@ public class MonsterIndex implements Serializable {
     private int defaultHitPoints;
 
     @Column(name = "challenge_rating")
-    private int challengeRating;
+    private double challengeRating;
 
     @Column(name = "api_url")
     private String apiUrl;

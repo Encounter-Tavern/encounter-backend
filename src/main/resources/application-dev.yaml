@@ -11,3 +11,5 @@ spring:
     url: jdbc:postgresql://localhost:5432/encounter
     username: user
     password: secret
+5e-srd-api:
+  url: https://www.dnd5eapi.co/api/

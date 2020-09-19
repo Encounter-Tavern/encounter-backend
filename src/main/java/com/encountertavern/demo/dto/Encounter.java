@@ -9,7 +9,9 @@ import java.util.List;
 @Setter
 public class Encounter {
 
-    private List<Monster> monsters;
+    private long id;
     private String name;
+    private List<Monster> monsters;
+    private List<Player> players;
 
 }
