@@ -20,6 +20,6 @@ public class DndApiService {
     }
 
     public MonsterDto getMonsterDto(String monsterUrl){
-        return restTemplate.getForObject(dndApiUrl + "monsters" + monsterUrl, MonsterDto.class);
+        return restTemplate.getForObject(dndApiUrl + "monsters/" + monsterUrl, MonsterDto.class);
     }
 }

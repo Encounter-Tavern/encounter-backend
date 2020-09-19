@@ -18,8 +18,10 @@ public class MonsterDto {
     private String name;
     private Type type;
     private Aligment aligment;
+    @JsonProperty("armor_class")
     private int armorClass;
     private double challengeRating;
+    @JsonProperty("hit_points")
     private int hitPoints;
     private int currentHitPoints;
     private String hitDice;
