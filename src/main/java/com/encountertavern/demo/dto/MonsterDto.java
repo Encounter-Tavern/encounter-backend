@@ -72,6 +72,7 @@ public class MonsterDto {
     @Schema(required = true,
             description = "Hit die of this monster",
             example="2d6")
+    @JsonProperty("hit_dice")
     private String hitDice;
 
     @Schema(required = true,

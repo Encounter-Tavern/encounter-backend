@@ -45,7 +45,10 @@ public class EncounterService {
         ArrayList<EncounterDto> encounterDtoList = new ArrayList<>();
         List<Encounter> encounters = encounterRepository.findAll();
         for (Encounter encounter : encounters) {
-            encounterDtoList.add(convertEncounterToEncounterDto(encounter));
+            EncounterDto encounterDto = new EncounterDto();
+            encounterDto.setId(encounter.getId());
+            encounterDto.setName(encounter.getName());
+            encounterDtoList.add(encounterDto);
         }
         return encounterDtoList;
     }
@@ -101,8 +104,15 @@ public class EncounterService {
             List<MonsterIndex> monsterIndexList = monsterIndexService.getWhereChallengeRatingIsLessOrEqual(Math.pow(challengeRating, 1/difficultyIncrease));
             int randomMonsterId = (int)(Math.random() * monsterIndexList.size());
             remainingChallengeRating -= Math.pow(monsterIndexList.get(randomMonsterId).getChallengeRating(), difficultyIncrease);
-            Monster monster = new Monster().updateValues(dndApiService.getMonsterDto(monsterIndexList.get(randomMonsterId).getApiUrl()));
+            MonsterDto monsterDto = dndApiService.getMonsterDto(monsterIndexList.get(randomMonsterId).getApiUrl());
+            Monster monster = new Monster().updateValues(monsterDto);
             monster.setMonsterIndex(monsterIndexList.get(randomMonsterId));
+            String[] hitDie = monsterDto.getHitDice().split("d");
+            int hitPoints = monsterDto.getHitPoints() - (int)(Integer.parseInt(hitDie[0]) * Integer.parseInt(hitDie[1]) / 2.0);
+            for (int i = 0; i < Integer.parseInt(hitDie[0]); i++) {
+                hitPoints += (int)(Math.random() * Integer.parseInt(hitDie[1])) + 1;
+            }
+            monster.setCurrentHitPoints(hitPoints);
             monsters.add(monster);
         }
         encounter.setMonster(new HashSet<>(monsters));
