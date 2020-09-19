@@ -40,41 +40,6 @@ public class AttributeController {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    @RequestMapping("/rest")
-    public com.encountertavern.demo.dto.Monster rest() {
-        System.out.println(dndApiUrl);
-        return restTemplate.getForObject( dndApiUrl + "monsters/adult-black-dragon/", com.encountertavern.demo.dto.Monster.class);
-    }
-
-    @RequestMapping("/test")
-    public List<Encounter> test() {
-        MonsterIndex mi = monsterIndexRepository.findById((long)2).get();
-
-        Monster m1 = new Monster();
-        m1.setName("Boblin");
-        m1.setMonsterIndex(mi);
-        Monster m2 = new Monster();
-        m2.setName("Goblin");
-        m2.setMonsterIndex(mi);
-        Set<Monster> m = Set.of(new Monster[]{m1, m2});
-
-        Player p1 = new Player();
-        p1.setLevel(5);
-        p1.setName("Glim");
-        Set<Player> p = Set.of(new Player[]{p1});
-
-        Encounter testEncounter = new Encounter();
-        testEncounter.setName("TPK");
-        testEncounter.setMonster(m);
-        testEncounter.setPlayers(p);
-
-        encounterRepository.save(testEncounter);
-        m2.setName("BOB");
-        monsterRepository.save(m2);
-        //encounterRepository.save(testEncounter);
-        return encounterRepository.findAll();
-    }
-
     @RequestMapping("/languages")
     public Language[] getLanguages() {
         return Language.values();

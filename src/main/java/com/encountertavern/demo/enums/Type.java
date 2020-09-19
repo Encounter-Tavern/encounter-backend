@@ -1,8 +1,8 @@
 package com.encountertavern.demo.enums;
 
 public enum Type {
-    abberation("abberaation"),
-    best("beast"),
+    aberration("abberaation"),
+    beast("beast"),
     celestial("celestial"),
     construct("construct"),
     dragon("dragon"),

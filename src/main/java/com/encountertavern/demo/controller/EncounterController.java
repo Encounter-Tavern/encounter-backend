@@ -1,5 +1,6 @@
 package com.encountertavern.demo.controller;
 
+import com.encountertavern.demo.dto.GenerateEncounter;
 import com.encountertavern.demo.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,14 +13,15 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 public class EncounterController {
 
-    private MonsterIndexRepository monsterIndexRepository;
-    private MonsterRepository monsterRepository;
-    private PlayerRepository playerRepository;
-    private EncounterRepository encounterRepository;
+    private final MonsterIndexRepository monsterIndexRepository;
+    private final MonsterRepository monsterRepository;
+    private final PlayerRepository playerRepository;
+    private final EncounterRepository encounterRepository;
     private final RestTemplate restTemplate;
 
     @Value("${5e-srd-api.url}")
@@ -71,6 +73,21 @@ public class EncounterController {
     public String putEncounter(@PathVariable Long encounterId, @RequestBody com.encountertavern.demo.dto.Encounter encounter) {
         encounterRepository.save(getEncounterModelFromDTO(encounter));
         return "Success";
+    }
+
+    @RequestMapping(value = "/encounters/generate", method = RequestMethod.POST)
+    public com.encountertavern.demo.dto.Encounter generateEncounter(@RequestBody GenerateEncounter generateEncounter) {
+        com.encountertavern.demo.dto.Encounter encounter = new com.encountertavern.demo.dto.Encounter();
+        encounter.setPlayers(generateEncounter.getPlayers());
+        List<MonsterIndex> monsterIndexList = monsterIndexRepository.findAll();
+        ArrayList<com.encountertavern.demo.dto.Monster> monsters = new ArrayList<>();
+        encounter.setMonsters(monsters);
+
+        Random rand = new Random();
+        for (int i = 0; i < encounter.getPlayers().size(); i++) {
+            monsters.add(restTemplate.getForObject(dndApiUrl + "monsters/" + monsterIndexList.get((int)(Math.random() * monsterIndexList.size())).getApiUrl(), com.encountertavern.demo.dto.Monster.class));
+        }
+        return encounter;
     }
 
     private Encounter getEncounterModelFromDTO(com.encountertavern.demo.dto.Encounter encounter) {

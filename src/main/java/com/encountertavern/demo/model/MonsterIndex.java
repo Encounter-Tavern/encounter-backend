@@ -1,6 +1,7 @@
 package com.encountertavern.demo.model;
 import javax.persistence.Entity;
 
+import com.encountertavern.demo.enums.Aligment;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,17 +20,11 @@ public class MonsterIndex implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "default_hit_points")
-    private int defaultHitPoints;
+    @Column(name = "api_url")
+    private String apiUrl;
 
     @Column(name = "challenge_rating")
     private double challengeRating;
-
-    @Column(name = "api_url")
-    private String apiUrl;
 
     @JsonIgnore
     @OneToMany(mappedBy = "monsterIndex", targetEntity = Monster.class)
