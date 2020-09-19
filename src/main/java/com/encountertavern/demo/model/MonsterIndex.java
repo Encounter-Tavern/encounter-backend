@@ -1,4 +1,4 @@
-package com.encountertavern.demo.Models;
+package com.encountertavern.demo.model;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

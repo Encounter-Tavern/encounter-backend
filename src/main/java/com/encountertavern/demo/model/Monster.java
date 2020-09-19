@@ -1,4 +1,4 @@
-package com.encountertavern.demo.Models;
+package com.encountertavern.demo.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +25,7 @@ public class Monster {
         monster.setName(this.name);
         monster.setHitPoints(this.hitPoints);
         monster.setCurrentHitPoints(this.currentHitPoints);
+        monster.setMonsterId(monsterIndex.getId());
         return monster;
     }
 

@@ -1,6 +1,6 @@
-package com.encountertavern.demo;
+package com.encountertavern.demo.controller;
 
-import com.encountertavern.demo.Models.*;
+import com.encountertavern.demo.model.*;
 import com.encountertavern.demo.enums.DamageType;
 import com.encountertavern.demo.enums.Difficulty;
 import com.encountertavern.demo.enums.Language;
@@ -48,8 +48,7 @@ public class AttributeController {
 
     @RequestMapping("/test")
     public List<Encounter> test() {
-        MonsterIndex mi = new MonsterIndex();
-        mi = monsterIndexRepository.findById((long)1).get();
+        MonsterIndex mi = monsterIndexRepository.findById((long)2).get();
 
         Monster m1 = new Monster();
         m1.setName("Boblin");

@@ -1,19 +1,19 @@
 package com.encountertavern.demo.enums;
 
 public enum DamageType {
-    ACID,
-    COLD,
-    FIRE,
-    FORCE,
-    LIGHTNING,
-    NECROTIC,
-    POISON,
-    PSYCHIC,
-    RADIANT,
-    THUNDER,
-    NON_MAGICAL,
-    MAGIC_WEAPONS,
-    SLASHING,
-    PIERCING,
-    SPELLS
+    acid,
+    cold,
+    fire,
+    force,
+    lightning,
+    necrotic,
+    poisen,
+    psychic,
+    radiant,
+    thunder,
+    non_magical,
+    magic_weapons,
+    slashing,
+    piercing,
+    spells
 }

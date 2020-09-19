@@ -9,7 +9,7 @@ public class Player {
 
     public Player() {}
 
-    public Player(com.encountertavern.demo.Models.Player player) {
+    public Player(com.encountertavern.demo.model.Player player) {
         this.name = player.getName();
         this.level = player.getLevel();
     }
