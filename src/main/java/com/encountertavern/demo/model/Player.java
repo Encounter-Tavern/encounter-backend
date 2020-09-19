@@ -1,4 +1,5 @@
 package com.encountertavern.demo.model;
+import com.encountertavern.demo.dto.PlayerDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,10 +14,10 @@ public class Player {
 
     public Player() {}
 
-    public Player(com.encountertavern.demo.dto.Player player) {
-        this.id = player.getId();
-        this.name = player.getName();
-        this.level = player.getLevel();
+    public Player(PlayerDto playerDto) {
+        this.id = playerDto.getId();
+        this.name = playerDto.getName();
+        this.level = playerDto.getLevel();
     }
 
     @Id
@@ -34,9 +35,9 @@ public class Player {
     @JoinColumn(name = "encounter_id", insertable = false, updatable = false)
     private Encounter encounter;
 
-    public Player updateValues(com.encountertavern.demo.dto.Player player) {
-        this.name = player.getName();
-        this.level = player.getLevel();
+    public Player updateValues(PlayerDto playerDto) {
+        this.name = playerDto.getName();
+        this.level = playerDto.getLevel();
         return this;
     }
 

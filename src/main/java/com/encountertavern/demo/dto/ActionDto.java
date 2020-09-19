@@ -8,11 +8,11 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Action {
+public class ActionDto {
 
     private String name;
     private String desc;
     @JsonProperty("attack_bonus")
     private int attackBonus;
-    private List<Damage> damage;
+    private List<DamageDto> damage;
 }

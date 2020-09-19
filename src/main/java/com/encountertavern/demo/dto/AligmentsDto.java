@@ -1,6 +1,6 @@
 package com.encountertavern.demo.dto;
 
-import com.encountertavern.demo.enums.Language;
+import com.encountertavern.demo.enums.Aligment;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,8 +8,8 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Languages {
+public class AligmentsDto {
 
-    private List<Language> languages;
+    private List<Aligment> aligments;
 
 }

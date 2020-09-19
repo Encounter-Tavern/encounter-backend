@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DamageType {
+public class DamageTypeDto {
 
     private String Name;
 

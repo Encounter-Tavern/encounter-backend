@@ -1,11 +1,7 @@
 package com.encountertavern.demo.dto;
 
 import com.encountertavern.demo.enums.Aligment;
-import com.encountertavern.demo.enums.Language;
-import com.encountertavern.demo.enums.DamageType;
 import com.encountertavern.demo.enums.Type;
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Monster {
+public class MonsterDto {
 
     private long id;
     private long monsterId;
@@ -36,7 +32,7 @@ public class Monster {
     private int charisma;
 
     private String languages;
-    private List<Action> actions;
+    private List<ActionDto> actions;
 
     @JsonProperty("damage_vulnerabilities")
     private List<String> damageVulnerabilities;

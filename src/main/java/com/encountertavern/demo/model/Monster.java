@@ -1,4 +1,5 @@
 package com.encountertavern.demo.model;
+import com.encountertavern.demo.dto.MonsterDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,20 +12,20 @@ import javax.persistence.*;
 @Table(name = "monster")
 public class Monster {
 
-    public com.encountertavern.demo.dto.Monster getMonster(com.encountertavern.demo.dto.Monster monster) {
-        monster.setId(this.id);
-        monster.setName(this.name);
-        monster.setHitPoints(this.hitPoints);
-        monster.setCurrentHitPoints(this.currentHitPoints);
-        monster.setMonsterId(this.monsterIndex.getId());
+    public MonsterDto getMonster(MonsterDto monsterDto) {
+        monsterDto.setId(this.id);
+        monsterDto.setName(this.name);
+        monsterDto.setHitPoints(this.hitPoints);
+        monsterDto.setCurrentHitPoints(this.currentHitPoints);
+        monsterDto.setMonsterId(this.monsterIndex.getId());
 
-        monster.setStrength(this.strength);
-        monster.setDexterity(this.dexterity);
-        monster.setConstitution(this.constitution);
-        monster.setIntelligence(this.intelligence);
-        monster.setWisdom(this.wisdom);
-        monster.setCharisma(this.charisma);
-        return monster;
+        monsterDto.setStrength(this.strength);
+        monsterDto.setDexterity(this.dexterity);
+        monsterDto.setConstitution(this.constitution);
+        monsterDto.setIntelligence(this.intelligence);
+        monsterDto.setWisdom(this.wisdom);
+        monsterDto.setCharisma(this.charisma);
+        return monsterDto;
     }
 
     @Id
@@ -67,17 +68,17 @@ public class Monster {
     @JoinColumn(name = "monster_index_id", nullable = false)
     private MonsterIndex monsterIndex;
 
-    public Monster updateValues(com.encountertavern.demo.dto.Monster monster) {
-        this.name = monster.getName();
-        this.hitPoints = monster.getHitPoints();
-        this.currentHitPoints = monster.getCurrentHitPoints();
+    public Monster updateValues(MonsterDto monsterDto) {
+        this.name = monsterDto.getName();
+        this.hitPoints = monsterDto.getHitPoints();
+        this.currentHitPoints = monsterDto.getCurrentHitPoints();
 
-        this.strength = monster.getStrength();
-        this.dexterity = monster.getDexterity();
-        this.constitution = monster.getConstitution();
-        this.intelligence = monster.getIntelligence();
-        this.wisdom = monster.getIntelligence();
-        this.charisma = monster.getCharisma();
+        this.strength = monsterDto.getStrength();
+        this.dexterity = monsterDto.getDexterity();
+        this.constitution = monsterDto.getConstitution();
+        this.intelligence = monsterDto.getIntelligence();
+        this.wisdom = monsterDto.getIntelligence();
+        this.charisma = monsterDto.getCharisma();
         return this;
     }
 

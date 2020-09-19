@@ -6,9 +6,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Damage {
+public class DamageDto {
     @JsonProperty("damage_type")
-    private DamageType damageType;
+    private DamageTypeDto damageType;
     @JsonProperty("damage_dice")
     private String damageDice;
 }

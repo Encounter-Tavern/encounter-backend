@@ -8,10 +8,10 @@ import java.util.List;
 
 @Getter
 @Setter
-public class GenerateEncounter {
+public class GenerateEncounterDto {
 
     private String name;
-    private List<Player> players;
+    private List<PlayerDto> players;
     private Difficulty difficulty;
 
 }

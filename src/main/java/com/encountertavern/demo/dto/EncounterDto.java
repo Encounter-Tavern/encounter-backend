@@ -7,11 +7,11 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Encounter {
+public class EncounterDto {
 
     private long id;
     private String name;
-    private List<Monster> monsters;
-    private List<Player> players;
+    private List<MonsterDto> monsters;
+    private List<PlayerDto> players;
 
 }

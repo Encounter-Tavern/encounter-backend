@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class DamageTypes {
+public class DamageTypesDto {
 
     private List<DamageType> damageTypes;
 

@@ -5,11 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Player {
+public class PlayerDto {
 
-    public Player() {}
+    public PlayerDto() {}
 
-    public Player(com.encountertavern.demo.model.Player player) {
+    public PlayerDto(com.encountertavern.demo.model.Player player) {
         this.id = player.getId();
         this.name = player.getName();
         this.level = player.getLevel();
