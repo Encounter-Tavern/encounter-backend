@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 public class GenerateEncounter {
 
+    private String name;
     private List<Player> players;
     private Difficulty difficulty;
 

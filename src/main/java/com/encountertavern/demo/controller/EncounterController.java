@@ -76,18 +76,27 @@ public class EncounterController {
     }
 
     @RequestMapping(value = "/encounters/generate", method = RequestMethod.POST)
-    public com.encountertavern.demo.dto.Encounter generateEncounter(@RequestBody GenerateEncounter generateEncounter) {
-        com.encountertavern.demo.dto.Encounter encounter = new com.encountertavern.demo.dto.Encounter();
-        encounter.setPlayers(generateEncounter.getPlayers());
-        List<MonsterIndex> monsterIndexList = monsterIndexRepository.findAll();
-        ArrayList<com.encountertavern.demo.dto.Monster> monsters = new ArrayList<>();
-        encounter.setMonsters(monsters);
+    public long generateEncounter(@RequestBody GenerateEncounter generateEncounter) {
+        Encounter encounter = new Encounter();
+        encounter.setName(generateEncounter.getName());
 
-        Random rand = new Random();
-        for (int i = 0; i < encounter.getPlayers().size(); i++) {
-            monsters.add(restTemplate.getForObject(dndApiUrl + "monsters/" + monsterIndexList.get((int)(Math.random() * monsterIndexList.size())).getApiUrl(), com.encountertavern.demo.dto.Monster.class));
+        List<MonsterIndex> monsterIndexList = monsterIndexRepository.findAll();
+        ArrayList<Monster> monsters = new ArrayList<>();
+        for (int i = 0; i < generateEncounter.getPlayers().size(); i++) {
+            int index = (int)(Math.random() * monsterIndexList.size());
+            Monster m = new Monster().updateValues(restTemplate.getForObject(dndApiUrl + "monsters/" + monsterIndexList.get(index).getApiUrl(), com.encountertavern.demo.dto.Monster.class));
+            m.setMonsterIndex(monsterIndexList.get(index));
+            monsters.add(m);
         }
-        return encounter;
+        encounter.setMonster(new HashSet<>(monsters));
+
+        List<Player> players = new ArrayList<>();
+        for (com.encountertavern.demo.dto.Player player: generateEncounter.getPlayers()) {
+            players.add(new Player().updateValues(player));
+        }
+        encounter.setPlayers(new HashSet<>(players));
+        encounterRepository.save(encounter);
+        return encounter.getId();
     }
 
     private Encounter getEncounterModelFromDTO(com.encountertavern.demo.dto.Encounter encounter) {
