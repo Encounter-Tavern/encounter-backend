@@ -1,4 +1,5 @@
 package com.encountertavern.demo.Models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,7 @@ public class Player {
     @Column(name = "level")
     private int level;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "encounter_id", insertable = false, updatable = false)
     private Encounter encounter;

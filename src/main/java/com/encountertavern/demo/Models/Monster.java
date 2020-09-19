@@ -1,4 +1,5 @@
 package com.encountertavern.demo.Models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,12 +41,13 @@ public class Monster {
     @Column(name = "current_hit_points")
     private int currentHitPoints;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "encounter_id", insertable = false, updatable = false)
     private Encounter encounter;
 
     @ManyToOne
-    @JoinColumn(name = "monster_index_id", insertable = false, updatable = false)
+    @JoinColumn(name = "monster_index_id", nullable = false)
     private MonsterIndex monsterIndex;
 
 }

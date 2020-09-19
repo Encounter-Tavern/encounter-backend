@@ -5,13 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class EncounterController {
@@ -45,6 +43,8 @@ public class EncounterController {
         for (Encounter encounter: encounters) {
             com.encountertavern.demo.dto.Encounter e = new com.encountertavern.demo.dto.Encounter();
             encounterList.add(e);
+            e.setId(encounter.getId());
+            e.setName(encounter.getName());
 
             ArrayList<com.encountertavern.demo.dto.Monster> monsters = new ArrayList<>();
             for (Monster monster: encounter.getMonster()) {

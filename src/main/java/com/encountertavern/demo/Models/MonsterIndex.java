@@ -1,11 +1,13 @@
 package com.encountertavern.demo.Models;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,5 +30,9 @@ public class MonsterIndex implements Serializable {
 
     @Column(name = "api_url")
     private String apiUrl;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "monsterIndex", targetEntity = Monster.class)
+    private Set<Monster> monsters;
 
 }

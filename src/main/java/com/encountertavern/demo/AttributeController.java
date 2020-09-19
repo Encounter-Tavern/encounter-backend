@@ -48,7 +48,8 @@ public class AttributeController {
 
     @RequestMapping("/test")
     public List<Encounter> test() {
-        MonsterIndex mi = monsterIndexRepository.getOne(new Long(1));
+        MonsterIndex mi = new MonsterIndex();
+        mi = monsterIndexRepository.findById((long)1).get();
 
         Monster m1 = new Monster();
         m1.setName("Boblin");
