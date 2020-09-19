@@ -18,6 +18,7 @@ public class Monster {
         this.name = monster.getName();
         this.hitPoints = monster.getHitPoints();
         this.currentHitPoints = monster.getCurrentHitPoints();
+        this.currentHitPoints = monster.getCurrentHitPoints();
     }
 
     public com.encountertavern.demo.dto.Monster getMonster(com.encountertavern.demo.dto.Monster monster) {

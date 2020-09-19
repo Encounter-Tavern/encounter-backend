@@ -14,6 +14,7 @@ public class Player {
         this.level = player.getLevel();
     }
 
+    private long id;
     private String name;
     private int level;
 

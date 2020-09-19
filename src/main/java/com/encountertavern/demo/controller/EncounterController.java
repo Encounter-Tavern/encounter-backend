@@ -4,14 +4,13 @@ import com.encountertavern.demo.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -63,9 +62,31 @@ public class EncounterController {
     }
 
     @RequestMapping(value = "/encounters/{encounterId}", method = RequestMethod.PUT)
-    public com.encountertavern.demo.dto.Encounter putEncounter(@PathVariable Long encounterId, com.encountertavern.demo.dto.Encounter encounter) {
-        System.out.println("PUT"+ encounterId);
-        return null;
+    public String putEncounter(@PathVariable Long encounterId, @RequestBody com.encountertavern.demo.dto.Encounter encounter) {
+        encounterRepository.save(getEncounterModelFromDTO(encounter));
+        return "Success";
+    }
+
+    private Encounter getEncounterModelFromDTO(com.encountertavern.demo.dto.Encounter encounter) {
+        Encounter e = new Encounter();
+        e.setId(encounter.getId());
+        e.setName(encounter.getName());
+
+        //Set Monsters
+        ArrayList<Monster> monsters = new ArrayList<>();
+        for (com.encountertavern.demo.dto.Monster monster: encounter.getMonsters()) {
+            Monster m = new Monster(monster);
+            m.setMonsterIndex(monsterIndexRepository.getOne(monster.getMonsterId()));
+            monsters.add(m);
+        }
+        e.setMonster(new HashSet<>(monsters));
+        //Set Players
+        ArrayList<Player> players = new ArrayList<>();
+        for (com.encountertavern.demo.dto.Player player: encounter.getPlayers()) {
+            players.add(new Player(player));
+        }
+        e.setPlayers(new HashSet<>(players));
+        return e;
     }
 
     private com.encountertavern.demo.dto.Encounter getEncounterDtoFromModel(Encounter encounter) {

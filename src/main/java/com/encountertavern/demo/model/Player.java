@@ -11,6 +11,14 @@ import javax.persistence.*;
 @Table(name = "player")
 public class Player {
 
+    public Player() {}
+
+    public Player(com.encountertavern.demo.dto.Player player) {
+        this.id = player.getId();
+        this.name = player.getName();
+        this.level = player.getLevel();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
