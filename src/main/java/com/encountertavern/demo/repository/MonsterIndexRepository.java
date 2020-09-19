@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface MonsterIndexRepository extends JpaRepository<MonsterIndex, Long> {
     List<MonsterIndex> findAll();
+    List<MonsterIndex> findMonsterIndexByChallengeRatingIsLessThanEqual(double challengeRating);
 }

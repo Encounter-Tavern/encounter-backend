@@ -76,6 +76,8 @@ public class EncounterService {
     }
 
     public Encounter generateEncounter(GenerateEncounterDto postData) {
+        double challengeRating = calculateChallengeRating(postData);
+
         Encounter encounter = new Encounter();
         encounter.setName(postData.getName());
 
@@ -96,6 +98,28 @@ public class EncounterService {
         }
         encounter.setPlayers(new HashSet<>(players));
         return encounterRepository.save(encounter);
+    }
+
+    /**
+     * X = Anzahl PC
+     * Y = PC Leveldurchscnitt
+     * F(x,y) = challenge_rating = y * x² / 4²
+     */
+    private double calculateChallengeRating(GenerateEncounterDto generateEncounterDto){
+        double averagePartyLevel = 0.0;
+        //Get average party level
+        for(PlayerDto player: generateEncounterDto.getPlayers()){
+            averagePartyLevel += player.getLevel();
+        }
+        averagePartyLevel = averagePartyLevel/generateEncounterDto.getPlayers().size();
+
+        //Increase/Decrease difficulty
+        double difficultyIncrease = 2 + (generateEncounterDto.getDifficulty().getNumVal());
+
+        double challengeRating = averagePartyLevel * Math.pow(generateEncounterDto.getPlayers().size(), difficultyIncrease) / 16;
+
+        //round to .125
+        return Math.round(challengeRating * 8) / 8;
     }
 
     private EncounterDto convertEncounterToEncounterDto(Encounter encounter) {

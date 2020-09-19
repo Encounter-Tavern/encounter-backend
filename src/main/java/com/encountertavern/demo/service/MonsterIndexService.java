@@ -21,7 +21,11 @@ public class MonsterIndexService {
     }
 
     public MonsterIndex getMonsterIndex(long id){
-        return monsterIndexRepository.getOne(id);
+        return this.monsterIndexRepository.getOne(id);
+    }
+
+    public List<MonsterIndex> getWhereChallengeRatingIsLessOrEqual(double challengeRating){
+        return this.monsterIndexRepository.findMonsterIndexByChallengeRatingIsLessThanEqual(challengeRating);
     }
 
 }
