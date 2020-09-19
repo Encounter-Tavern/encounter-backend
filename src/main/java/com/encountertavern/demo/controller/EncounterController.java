@@ -3,6 +3,7 @@ package com.encountertavern.demo.controller;
 import com.encountertavern.demo.dto.EncounterDto;
 import com.encountertavern.demo.dto.GenerateEncounterDto;
 import com.encountertavern.demo.service.EncounterService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@Tag(name = "Encounters")
 public class EncounterController {
 
     private final EncounterService encounterService;
