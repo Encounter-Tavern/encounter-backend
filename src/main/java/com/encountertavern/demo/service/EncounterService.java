@@ -26,6 +26,7 @@ public class EncounterService {
     private final DndApiService dndApiService;
     private final MonsterService monsterService;
     private final PlayerService playerService;
+    private final double difficultyIncrease = 1.5;
 
     @Autowired
     public EncounterService(EncounterRepository encounterRepository,
@@ -75,20 +76,34 @@ public class EncounterService {
         }
     }
 
-    public Encounter generateEncounter(GenerateEncounterDto postData) {
-        double challengeRating = calculateChallengeRating(postData);
+    /*
+        X = Party Size
+        L = average level of the party
+        D = difficulty increase per level, default 2
+        M = difficultyLevel monster
 
+         X^D * L
+        (-------)^2 = M^D + ... + MN^D
+         4^D
+     */
+    public Encounter generateEncounter(GenerateEncounterDto postData) {
         Encounter encounter = new Encounter();
         encounter.setName(postData.getName());
-
-        List<MonsterIndex> monsterIndexList = monsterIndexService.getAll();
         ArrayList<Monster> monsters = new ArrayList<>();
-        for (int i = 0; i < postData.getPlayers().size(); i++) {
-            int index = (int) (Math.random() * monsterIndexList.size());
-            Monster m = new Monster().updateValues(dndApiService.getMonsterDto(monsterIndexList.get(index).getApiUrl()));
-            m.setMonsterIndex(monsterIndexList.get(index));
-            m.setCurrentHitPoints(m.getHitPoints());
-            monsters.add(m);
+
+        double challengeRating = calculateChallengeRating(postData);
+        double remainingChallengeRating = challengeRating;
+
+        while (remainingChallengeRating < 0.5) {
+            remainingChallengeRating += 0.5;
+        }
+        while (remainingChallengeRating >= 0.5 || monsters.size() < 1) {
+            List<MonsterIndex> monsterIndexList = monsterIndexService.getWhereChallengeRatingIsLessOrEqual(Math.pow(challengeRating, 1/difficultyIncrease));
+            int randomMonsterId = (int)(Math.random() * monsterIndexList.size());
+            remainingChallengeRating -= Math.pow(monsterIndexList.get(randomMonsterId).getChallengeRating(), difficultyIncrease);
+            Monster monster = new Monster().updateValues(dndApiService.getMonsterDto(monsterIndexList.get(randomMonsterId).getApiUrl()));
+            monster.setMonsterIndex(monsterIndexList.get(randomMonsterId));
+            monsters.add(monster);
         }
         encounter.setMonster(new HashSet<>(monsters));
 
@@ -113,13 +128,9 @@ public class EncounterService {
         }
         averagePartyLevel = averagePartyLevel/generateEncounterDto.getPlayers().size();
 
-        //Increase/Decrease difficulty
-        double difficultyIncrease = 2 + (generateEncounterDto.getDifficulty().getNumVal());
-
-        double challengeRating = averagePartyLevel * Math.pow(generateEncounterDto.getPlayers().size(), difficultyIncrease) / 16;
-
-        //round to .125
-        return Math.round(challengeRating * 8) / 8;
+        return Math.pow(
+                averagePartyLevel * Math.pow(generateEncounterDto.getPlayers().size(), difficultyIncrease + generateEncounterDto.getDifficulty().getNumVal()) / Math.pow(4, difficultyIncrease),
+                difficultyIncrease);
     }
 
     private EncounterDto convertEncounterToEncounterDto(Encounter encounter) {

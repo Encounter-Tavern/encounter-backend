@@ -1,10 +1,10 @@
 package com.encountertavern.demo.enums;
 
 public enum Difficulty {
-    EASY(-0.5),
-    NORMAL(0),
-    HARD(0.5),
-    TPK(1);
+    EASY(-0.1),
+    NORMAL(0.025),
+    HARD(0.1),
+    TPK(0.25);
 
     private double numVal;
 
