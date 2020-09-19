@@ -7,8 +7,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "monster")
-public class Monster {
+@Table(name = "player")
+public class Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,15 +17,11 @@ public class Monster {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "hit_points")
-    private int hitPoints;
+    @Column(name = "level")
+    private int level;
 
     @ManyToOne
     @JoinColumn(name = "encounter_id", insertable = false, updatable = false)
     private Encounter encounter;
-
-    @ManyToOne
-    @JoinColumn(name = "monster_index_id", insertable = false, updatable = false)
-    private MonsterIndex monsterIndex;
 
 }
