@@ -35,8 +35,7 @@ public class Monster {
     private int wisdom;
     private int charisma;
 
-    @JsonIgnore
-    private List<Language> languages;
+    private List<String> languages;
     private List<Action> actions;
 
     @JsonProperty("damage_vulnerabilities")

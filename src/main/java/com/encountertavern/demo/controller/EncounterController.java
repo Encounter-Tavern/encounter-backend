@@ -48,6 +48,12 @@ public class EncounterController {
         return encounterList;
     }
 
+    @RequestMapping(value = "/encounters", method = RequestMethod.POST)
+    public String postEncounter(@RequestBody com.encountertavern.demo.dto.Encounter encounter) {
+        encounterRepository.save(getEncounterModelFromDTO(encounter));
+        return "Success";
+    }
+
     @RequestMapping(value = "/encounters/{encounterId}", method = RequestMethod.GET)
     public com.encountertavern.demo.dto.Encounter getEncounter(@PathVariable Long encounterId) {
         try {
@@ -75,15 +81,26 @@ public class EncounterController {
         //Set Monsters
         ArrayList<Monster> monsters = new ArrayList<>();
         for (com.encountertavern.demo.dto.Monster monster: encounter.getMonsters()) {
-            Monster m = new Monster(monster);
-            m.setMonsterIndex(monsterIndexRepository.getOne(monster.getMonsterId()));
-            monsters.add(m);
+            if (monster.getMonsterId() == 0) {
+                Monster m = new Monster(monster);
+                m.setMonsterIndex(monsterIndexRepository.getOne(monster.getMonsterId()));
+                monsters.add(m);
+            } else {
+                Monster m = monsterRepository.getOne(monster.getId());
+                monsters.add(m.updateValues(monster));
+            }
         }
         e.setMonster(new HashSet<>(monsters));
+
         //Set Players
         ArrayList<Player> players = new ArrayList<>();
         for (com.encountertavern.demo.dto.Player player: encounter.getPlayers()) {
-            players.add(new Player(player));
+            if (player.getId() == 0) {
+                players.add(new Player(player));
+            } else {
+                Player p = playerRepository.getOne(player.getId());
+                players.add(p.updateValues(player));
+            }
         }
         e.setPlayers(new HashSet<>(players));
         return e;

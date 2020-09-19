@@ -52,4 +52,11 @@ public class Monster {
     @JoinColumn(name = "monster_index_id", nullable = false)
     private MonsterIndex monsterIndex;
 
+    public Monster updateValues(com.encountertavern.demo.dto.Monster monster) {
+        this.name = monster.getName();
+        this.hitPoints = monster.getHitPoints();
+        this.currentHitPoints = monster.getCurrentHitPoints();
+        return this;
+    }
+
 }

@@ -10,6 +10,7 @@ public class Player {
     public Player() {}
 
     public Player(com.encountertavern.demo.model.Player player) {
+        this.id = player.getId();
         this.name = player.getName();
         this.level = player.getLevel();
     }

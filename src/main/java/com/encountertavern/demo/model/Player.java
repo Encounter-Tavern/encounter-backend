@@ -34,4 +34,10 @@ public class Player {
     @JoinColumn(name = "encounter_id", insertable = false, updatable = false)
     private Encounter encounter;
 
+    public Player updateValues(com.encountertavern.demo.dto.Player player) {
+        this.name = player.getName();
+        this.level = player.getLevel();
+        return this;
+    }
+
 }
