@@ -11,22 +11,19 @@ import javax.persistence.*;
 @Table(name = "monster")
 public class Monster {
 
-    public Monster() {}
-
-    public Monster(com.encountertavern.demo.dto.Monster monster) {
-        this.id = monster.getId();
-        this.name = monster.getName();
-        this.hitPoints = monster.getHitPoints();
-        this.currentHitPoints = monster.getCurrentHitPoints();
-        this.currentHitPoints = monster.getCurrentHitPoints();
-    }
-
     public com.encountertavern.demo.dto.Monster getMonster(com.encountertavern.demo.dto.Monster monster) {
         monster.setId(this.id);
         monster.setName(this.name);
         monster.setHitPoints(this.hitPoints);
         monster.setCurrentHitPoints(this.currentHitPoints);
-        monster.setMonsterId(monsterIndex.getId());
+        monster.setMonsterId(this.monsterIndex.getId());
+
+        monster.setStrength(this.strength);
+        monster.setDexterity(this.dexterity);
+        monster.setConstitution(this.constitution);
+        monster.setIntelligence(this.intelligence);
+        monster.setWisdom(this.wisdom);
+        monster.setCharisma(this.charisma);
         return monster;
     }
 
@@ -43,6 +40,24 @@ public class Monster {
     @Column(name = "current_hit_points")
     private int currentHitPoints;
 
+    @Column(name = "strength")
+    private int strength;
+
+    @Column(name = "dexterity")
+    private int dexterity;
+
+    @Column(name = "constitution")
+    private int constitution;
+
+    @Column(name = "intelligence")
+    private int intelligence;
+
+    @Column(name = "wisdom")
+    private int wisdom;
+
+    @Column(name = "charisma")
+    private int charisma;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "encounter_id", insertable = false, updatable = false)
@@ -56,6 +71,13 @@ public class Monster {
         this.name = monster.getName();
         this.hitPoints = monster.getHitPoints();
         this.currentHitPoints = monster.getCurrentHitPoints();
+
+        this.strength = monster.getStrength();
+        this.dexterity = monster.getDexterity();
+        this.constitution = monster.getConstitution();
+        this.intelligence = monster.getIntelligence();
+        this.wisdom = monster.getIntelligence();
+        this.charisma = monster.getCharisma();
         return this;
     }
 

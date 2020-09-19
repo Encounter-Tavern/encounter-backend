@@ -81,8 +81,8 @@ public class EncounterController {
         //Set Monsters
         ArrayList<Monster> monsters = new ArrayList<>();
         for (com.encountertavern.demo.dto.Monster monster: encounter.getMonsters()) {
-            if (monster.getMonsterId() == 0) {
-                Monster m = new Monster(monster);
+            if (monster.getId() == 0) {
+                Monster m = new Monster().updateValues(monster);
                 m.setMonsterIndex(monsterIndexRepository.getOne(monster.getMonsterId()));
                 monsters.add(m);
             } else {
