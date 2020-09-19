@@ -16,10 +16,10 @@ public class DndApiService {
 
     @Autowired
     public DndApiService(RestTemplateBuilder restTemplateBuilder){
-        this.restTemplate = restTemplateBuilder.rootUri(dndApiUrl).build();
+        this.restTemplate = restTemplateBuilder.build();
     }
 
     public MonsterDto getMonsterDto(String monsterUrl){
-        return restTemplate.getForObject("/monsters" + monsterUrl, MonsterDto.class);
+        return restTemplate.getForObject(dndApiUrl + "monsters" + monsterUrl, MonsterDto.class);
     }
 }

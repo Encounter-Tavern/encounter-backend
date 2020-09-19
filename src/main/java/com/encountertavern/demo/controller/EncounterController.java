@@ -50,18 +50,12 @@ public class EncounterController {
 
     @RequestMapping(value = "/encounters", method = RequestMethod.GET)
     public List<EncounterDto> getEncounters() {
-        ArrayList<EncounterDto> encounterDtoList = new ArrayList<>();
-        List<Encounter> encounters = encounterRepository.findAll();
-        for (Encounter encounter: encounters) {
-            encounterDtoList.add(getEncounterDtoFromModel(encounter));
-        }
-        return encounterDtoList;
+        return encounterService.getAll();
     }
 
     @RequestMapping(value = "/encounters", method = RequestMethod.POST)
     public String postEncounter(@RequestBody EncounterDto encounterDto) {
-        encounterRepository.save(getEncounterModelFromDTO(encounterDto));
-        return "Success";
+        return encounterService.save(encounterDto);
     }
 
     @RequestMapping(value = "/encounters/{encounterId}", method = RequestMethod.GET)
